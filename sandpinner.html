@@ -1,0 +1,152 @@
+
+
+<!doctype html>
+
+
+
+
+<HTML>
+
+
+<html lang="en">
+
+
+
+<HEAD>
+
+
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<title> Sandpinner</title>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</HEAD>
+
+
+
+
+
+
+
+<BODY>
+
+
+
+
+<div class="pinwheel"></div>
+
+<style>
+  .pinwheel {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 50px auto;
+    animation: spin 10s linear infinite; /* default gentle spin */
+    transition: background 4s ease, animation-duration 2s ease;
+    cursor: pointer;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+</style>
+
+<script>
+  const pinwheel = document.querySelector('.pinwheel');
+
+  // --- Seasonal palettes ---
+  const palettes = {
+    spring: [
+      'conic-gradient(pink, lightgreen, yellow, pink)',
+      'conic-gradient(lightgreen, yellow, pink, lightblue)'
+    ],
+    summer: [
+      'conic-gradient(red, orange, yellow, green, blue, pink)',
+      'conic-gradient(yellow, red, pink, blue, green, orange)'
+    ],
+    autumn: [
+      'conic-gradient(orange, brown, darkred, gold)',
+      'conic-gradient(gold, darkorange, sienna, crimson)'
+    ],
+    winter: [
+      'conic-gradient(lightblue, white, silver, lightblue)',
+      'conic-gradient(white, lightblue, lightgray, silver)'
+    ]
+  };
+
+  // --- Detect season ---
+  function getSeason() {
+    const month = new Date().getMonth();
+    if (month >= 2 && month <= 4) return 'spring';
+    if (month >= 5 && month <= 7) return 'summer';
+    if (month >= 8 && month <= 10) return 'autumn';
+    return 'winter';
+  }
+
+  // --- Cycle through seasonal palettes ---
+  let paletteIndex = 0;
+  function cycleColors() {
+    const season = getSeason();
+    const seasonPalettes = palettes[season];
+    pinwheel.style.background = seasonPalettes[paletteIndex % seasonPalettes.length];
+    paletteIndex++;
+  }
+
+  // --- Mood sync logic ---
+  function syncWithMood(mood) {
+    if (mood === 'energetic') pinwheel.style.animationDuration = '2s';
+    if (mood === 'ambient') pinwheel.style.animationDuration = '12s';
+    if (mood === 'mellow') pinwheel.style.animationDuration = '8s';
+  }
+
+  // --- Gust ritual ---
+  function milestoneGust() {
+    pinwheel.style.animationDuration = '1s'; // fast spin
+    const chime = new Audio('chime.mp3');
+    chime.play();
+    setTimeout(() => syncWithSeason(), 5000); // reset to seasonal baseline
+  }
+
+  // --- Listener interaction ---
+  pinwheel.addEventListener('click', () => {
+    milestoneGust(); // gust on click
+  });
+
+  // --- Seasonal baseline ---
+  function syncWithSeason() {
+    cycleColors();
+  }
+
+  // --- Personal breeze cycle ---
+  milestoneGust(); // welcome gust
+  setInterval(milestoneGust, 3600000); // hourly gust
+
+  // --- Color morph cycle ---
+  setInterval(cycleColors, 10000); // every 10s, fade to next palette
+
+  // Initialize
+  syncWithSeason();
+</script>
+
+
+</body>
+
+
+</HTML>
