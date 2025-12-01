@@ -116,37 +116,39 @@
     if (mood === 'mellow') pinwheel.style.animationDuration = '8s';
   }
 
-  // --- Gust ritual ---
-  function milestoneGust() {
-    pinwheel.style.animationDuration = '1s'; // fast spin
-    const chime = new Audio('chime.mp3');
-    chime.play();
-    setTimeout(() => syncWithSeason(), 5000); // reset to seasonal baseline
-  }
+// --- Gust ritual ---
+function milestoneGust() {
+  pinwheel.style.animationDuration = '1s'; // fast spin
+  const chime = new Audio('chime.mp3');
+  chime.play();
+  setTimeout(() => syncWithSeason(), 5000); // reset to seasonal baseline
+}
 
-  // --- Listener interaction ---
-  pinwheel.addEventListener('click', () => {
-    milestoneGust(); // gust on click
-  });
+// --- Listener interaction ---
+pinwheel.addEventListener('click', () => {
+  milestoneGust(); // gust ONLY on click
+});
 
-  // --- Seasonal baseline ---
-  function syncWithSeason() {
-    cycleColors();
-  }
+// --- Seasonal baseline ---
+function syncWithSeason() {
+  cycleColors();
+}
 
-  // --- Personal breeze cycle ---
-  milestoneGust(); // welcome gust
-  setInterval(milestoneGust, 3600000); // hourly gust
+// ❌ Removed:
+// milestoneGust(); // welcome gust
+// setInterval(milestoneGust, 3600000); // hourly gust
 
-  // --- Color morph cycle ---
-  setInterval(cycleColors, 10000); // every 10s, fade to next palette
+// --- Color morph cycle ---
+setInterval(cycleColors, 10000); // every 10s, fade to next palette
 
-  // Initialize
-  syncWithSeason();
+// Initialize
+syncWithSeason();
+
 </script>
 
 
 </body>
+
 
 
 </HTML>
